@@ -3,10 +3,7 @@ import numpy as np
 # Sudoku solver project
 
 def find_empty_spot(our_sudoku):
-    # this function finds next empty spot on the Sudoku looking through rows and columns, empty spots are filled with -1
-    # returns tuple (row, col) of our empty spot, if no empty spaces were spotted returns (none, none)
-
-    # keep in mind that we are using 0-8 for our indices
+    
     for row in range(9):
         for col in range(9):  
             if our_sudoku[row][col] == -1:
@@ -16,27 +13,20 @@ def find_empty_spot(our_sudoku):
 
 
 def is_valid(our_sudoku, our_guess, current_row, current_col):
-    # figures out if our guess at this (row, col) is valid using sudoku rules.
-    # returns true when our guess is valid option, else false
-
-    # for a guess to be valid, we need to follow the sudoku rules
-    # that number must not be repeated in the row, column, or 3x3 square that it appears in
-
+    
     # let's start with the row
-    list_of_this_row = our_sudoku[current_row]   # copy this specific row in a new list called list_of_this_row
+    list_of_this_row = our_sudoku[current_row]   
     if our_guess in list_of_this_row:
-        return False  # if our guess was spotted in it's row return false because we have violated sudoku rules
+        return False  
 
     # now the column
     # copy this specific entire column in a new list called list_of_this_col
     list_of_this_col = [our_sudoku[i][current_col] for i in range(9)]
     if our_guess in list_of_this_col:
-        return False  # if our guess was spotted in it's column return false because we have violated sudoku rules
+        return False  
 
-    # and then the square
-    # we're finding starting point of our guess' square in rows (options: 0, 3, 6)
     square_first_row = (current_row // 3) * 3
-    # we're finding starting point of our guess' square in columns (options: 0, 3, 6)
+    
     square_first_col = (current_col // 3) * 3
 
     # move from square's first row up to last row in that square
@@ -51,9 +41,7 @@ def is_valid(our_sudoku, our_guess, current_row, current_col):
 
 
 def solver(our_sudoku):
-    # we're solving this Sudoku using Backtracking algorithm
-    # our Sudoku is a list of lists holding 9 Rows (which are lists) and each Row is a list of 9 columns
-    # if this function returns true it indicates that this Sudoku is solved, else it's unsolvable.
+   
 
     # step 1: find a empty space on the Sudoku to mutate it
     current_row, current_col = find_empty_spot(our_sudoku)
